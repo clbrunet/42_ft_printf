@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 13:12:34 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/09/26 13:12:34 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/10/04 12:13:45 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/10/04 12:13:45 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef DEBUG_H
+# define DEBUG_H
+
 #include "ft_printf.h"
-#include "debug.h"
 
-int		ft_printf(const char *format, ...)
-{
-	va_list	ap;
+void	print_specs(t_conv_specs *specs);
 
-	va_start(ap, format);
-	while (*format)
-	{
-		while (*format && *format != '%')
-			ft_putchar(*(format++));
-		if (*format && *(++format))
-		{
-			convert(&ap, &format);
-		}
-	}
-	va_end(ap);
-	return (0);
-}
+#endif

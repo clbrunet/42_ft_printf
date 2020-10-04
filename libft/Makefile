@@ -55,7 +55,7 @@ SRCS	=	personnals_ft/ft_isupper.c	\
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -I. -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -I.
 
 all		:	$(NAME)
 

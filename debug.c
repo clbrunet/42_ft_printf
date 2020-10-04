@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 13:12:34 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/09/26 13:12:34 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/10/04 12:13:51 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/10/04 12:13:51 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-int		ft_printf(const char *format, ...)
+void	print_specs(t_conv_specs *specs)
 {
-	va_list	ap;
-
-	va_start(ap, format);
-	while (*format)
-	{
-		while (*format && *format != '%')
-			ft_putchar(*(format++));
-		if (*format && *(++format))
-		{
-			convert(&ap, &format);
-		}
-	}
-	va_end(ap);
-	return (0);
+	printf("\n=============================\n");
+	printf("# %i\n0 %i\n- %i\n' ' %i\n+ %i\n", specs->sharp, specs->zero,
+			specs->minus, specs->space, specs->plus);
+	printf("width %i\nprecision %i\n", specs->width, specs->precision);
+	printf("=============================\n");
 }
