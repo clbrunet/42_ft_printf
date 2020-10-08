@@ -16,29 +16,48 @@
 int		convert(va_list *ap, const char **format)
 {
 	t_conv_specs	specs;
-	int				i;
+	long long		n;
 	char			c;
 	char			*s;
 
 	parse_conv_specs(ap, format, &specs);
-	/* print_specs(&specs); */
-	if (**format == '%')
-		ft_putchar('%');
-	else if (**format == 'i' || **format == 'd')
-	{
-		i = va_arg(*ap, int);
-		putnbr_specs(i, &specs);
-	}
-	else if (**format == 'c')
+	if (**format == 'c')
 	{
 		c = (char)va_arg(*ap, int);
-		ft_putchar(c);
+		putchar_specs(c, &specs);
 	}
 	else if (**format == 's')
 	{
 		s = va_arg(*ap, char *);
-		ft_putstr(s);
+		putstr_specs(s, &specs);
 	}
+	else if (**format == 'p')
+	{
+		n = (long long)va_arg(*ap, char *);
+		puthex_specs(n, &specs, 'p');
+	}
+	else if (**format == 'd' || **format == 'i')
+	{
+		n = (long long)va_arg(*ap, int);
+		putnbr_specs(n, &specs);
+	}
+	else if (**format == 'u')
+	{
+		n = (long long)va_arg(*ap, unsigned);
+		putnbr_specs(n, &specs);
+	}
+	else if (**format == 'x')
+	{
+		n = (long long)va_arg(*ap, unsigned);
+		puthex_specs(n, &specs, 'x');
+	}
+	else if (**format == 'X')
+	{
+		n = (long long)va_arg(*ap, unsigned);
+		puthex_specs(n, &specs, 'X');
+	}
+	else if (**format == '%')
+		putchar_specs('%', &specs);
 	(*format)++;
 	return (1);
 }

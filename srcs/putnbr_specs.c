@@ -6,39 +6,63 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 11:33:27 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/04 11:33:27 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:54:33 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-static int	nbrlen(long n, int len)
+static int	nbrlen(long long n, int len)
 {
 	if (n > 9)
 		return (nbrlen(n / 10, len + 1));
 	return (len);
 }
 
-static void putnbr_positive_long(long n)
+static void	putnbr_positive_ll(long long n)
 {
 	if (n > 9)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
+		putnbr_positive_ll(n / 10);
+	putchar_count(n % 10 + '0');
 }
 
-void		putnbr_specs(long n, t_conv_specs *specs)
+static int	nbradd_len(int sign, t_conv_specs *specs)
+{
+	return ((sign == -1 || specs->blank || specs->plus) ? 1 : 0);
+}
+
+static void	putnbr_precision(long long n, int sign, int len,
+		t_conv_specs *specs)
+{
+	int		precision;
+
+	precision = specs->precision;
+	if (!(specs->zero && specs->precision < 0))
+	{
+		if (sign == -1)
+			putchar_count('-');
+		else if (specs->blank || specs->plus)
+			putchar_count((specs->plus) ? '+' : ' ');
+	}
+	while (precision > len)
+	{
+		putchar_count('0');
+		precision--;
+	}
+	putnbr_positive_ll(n);
+}
+
+void		putnbr_specs(long long n, t_conv_specs *specs)
 {
 	int		sign;
 	int		len;
-	int		width;
-	int		precision;
 
 	if (!specs->precision && !n)
 	{
 		while (specs->width)
 		{
-			ft_putchar(' ');
+			putchar_count(' ');
 			specs->width--;
 		}
 		return ;
@@ -49,40 +73,22 @@ void		putnbr_specs(long n, t_conv_specs *specs)
 		sign = -1;
 		n *= -1;
 	}
-	len = nbrlen(n, (sign == 1 && !specs->plus && !specs->space) ? 1 : 2);
-	width = specs->width;
-	precision = specs->precision;
-	if ((specs->space || specs->plus) && sign == 1
-			&& (specs->width <= len || specs->minus || specs->zero))
-		ft_putchar((specs->plus) ? '+' : ' ');
-	if (specs->space && sign == 1 && (specs->minus || specs->zero))
-		specs->width--;
-	if (sign == -1)
-		ft_putchar('-');
+	len = nbrlen(n, 1);
 	if (specs->minus)
+		putnbr_precision(n, sign, len, specs);
+	if (specs->zero && specs->precision < 0)
 	{
-		while (precision > len - ((sign == -1 || specs->space || specs->plus) ? 1 : 0))
-		{
-			ft_putchar('0');
-			precision--;
-		}
-		putnbr_positive_long(n);
+		if (sign == -1)
+			putchar_count('-');
+		else if (specs->blank || specs->plus)
+			putchar_count((specs->plus) ? '+' : ' ');
 	}
-	/* printf("width %i, len: %i\n", width, len); */
-	while (width > specs->precision && width > len
-			+ (specs->minus && (specs->space || specs->plus)) ? 1 : 0)
+	while (specs->width > ((specs->precision > len) ? specs->precision : len)
+			+ nbradd_len(sign, specs))
 	{
-		ft_putchar((specs->zero && !specs->minus
-					&& specs->precision > specs->width) ? '0' : ' ');
-		width--;
+		putchar_count((specs->zero && specs->precision < 0) ? '0' : ' ');
+		specs->width--;
 	}
 	if (!specs->minus)
-	{
-		while (precision > len - ((sign == 1) ? 0 : 1))
-		{
-			ft_putchar('0');
-			precision--;
-		}
-		putnbr_positive_long(n);
-	}
+		putnbr_precision(n, sign, len, specs);
 }

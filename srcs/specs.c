@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "debug.h"
 
-static int		atoi_trim(const char **nptr)
+static int	atoi_trim(const char **nptr)
 {
 	long	n;
 	int		sign;
@@ -35,7 +35,7 @@ static int		atoi_trim(const char **nptr)
 	return (n * sign);
 }
 
-static int		isflag(char c)
+static int	isflag(char c)
 {
 	int		flag_id;
 
@@ -53,18 +53,18 @@ static int		isflag(char c)
 	return (flag_id);
 }
 
-static void		specs_to_zero(t_conv_specs *specs)
+static void	specs_to_zero(t_conv_specs *specs)
 {
 	specs->sharp = 0;
 	specs->zero = 0;
 	specs->minus = 0;
-	specs->space = 0;
+	specs->blank = 0;
 	specs->plus = 0;
 	specs->width = 0;
 	specs->precision = -1;
 }
 
-static void		set_flags(const char **format, t_conv_specs *specs)
+static void	set_flags(const char **format, t_conv_specs *specs)
 {
 	int		flag_id;
 
@@ -78,23 +78,16 @@ static void		set_flags(const char **format, t_conv_specs *specs)
 		else if (flag_id == 3)
 			specs->minus = 1;
 		else if (flag_id == 4)
-			specs->space = 1;
+			specs->blank = 1;
 		else if (flag_id == 5)
 			specs->plus = 1;
 		(*format)++;
 	}
 }
 
-int			parse_conv_specs(va_list *ap, const char **format, t_conv_specs *specs)
+static void	parse_precision(va_list *ap, const char **format,
+		t_conv_specs *specs)
 {
-	set_flags(format, specs);
-	if (**format == '*')
-	{
-		specs->width = va_arg(*ap, int);
-		(*format)++;
-	}
-	else if (ft_isdigit(**format))
-		specs->width = atoi_trim(format);
 	if (**format == '.')
 	{
 		(*format)++;
@@ -108,5 +101,28 @@ int			parse_conv_specs(va_list *ap, const char **format, t_conv_specs *specs)
 		else
 			specs->precision = 0;
 	}
+}
+
+int			parse_conv_specs(va_list *ap, const char **format,
+		t_conv_specs *specs)
+{
+	set_flags(format, specs);
+	if (**format == '*')
+	{
+		specs->width = va_arg(*ap, int);
+		if (specs->width < 0)
+		{
+			specs->minus = 1;
+			specs->width *= -1;
+		}
+		(*format)++;
+	}
+	else if (ft_isdigit(**format))
+		specs->width = atoi_trim(format);
+	parse_precision(ap, format, specs);
+	if (specs->minus)
+		specs->zero = 0;
+	if (specs->plus)
+		specs->blank = 0;
 	return (1);
 }

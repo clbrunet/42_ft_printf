@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   putchar_specs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/04 12:13:51 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/04 12:13:51 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-void	print_specs(t_conv_specs *specs)
+void	putchar_specs(char c, t_conv_specs *specs)
 {
-	printf("\n=============================\n");
-	printf("# %i\n0 %i\n- %i\n' ' %i\n+ %i\n", specs->sharp, specs->zero,
-			specs->minus, specs->blank, specs->plus);
-	printf("width %i\nprecision %i\n", specs->width, specs->precision);
-	printf("=============================\n");
+	if (specs->minus)
+		putchar_count(c);
+	while (specs->width > 1)
+	{
+		putchar_count(' ');
+		specs->width--;
+	}
+	if (!specs->minus)
+		putchar_count(c);
 }

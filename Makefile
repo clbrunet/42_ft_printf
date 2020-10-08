@@ -3,7 +3,10 @@ NAME	=	libftprintf.a
 SRCS	=	srcs/ft_printf.c	\
 			srcs/convert.c		\
 			srcs/specs.c		\
-			srcs/putnbr_specs.c
+			srcs/putnbr_specs.c	\
+			srcs/putchar_specs.c\
+			srcs/putstr_specs.c	\
+			srcs/puthex_specs.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -23,7 +26,7 @@ $(NAME)	:	libft.a $(OBJS)
 
 
 main	:	$(NAME)
-			$(CC) main.c debug.c -L. -lftprintf -Iincludes
+			$(CC) main.c debug.c -L. -lftprintf -Iincludes -g
 
 test	:	main
 			@echo "=================================================================================\n"

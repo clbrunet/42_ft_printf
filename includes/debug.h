@@ -13,7 +13,7 @@
 #ifndef DEBUG_H
 # define DEBUG_H
 
-#include "ft_printf.h"
+# include "ft_printf.h"
 
 void	print_specs(t_conv_specs *specs);
 
