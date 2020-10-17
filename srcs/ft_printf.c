@@ -33,11 +33,10 @@ void	putstr_count(char *s)
 	g_res += ft_strlen(s);
 }
 
-// TODO sharp
-
 int		ft_printf(const char *format, ...)
 {
 	va_list	ap;
+	t_conv_specs specs;
 
 	g_res = 0;
 	va_start(ap, format);
@@ -47,7 +46,10 @@ int		ft_printf(const char *format, ...)
 			putchar_count(*(format++));
 		if (*format && *(++format))
 		{
-			convert(&ap, &format);
+			parse_conv_specs(&ap, &format, &specs);
+			specs.specifier = *format;
+			convert(&ap, specs.specifier, &specs);
+			format++;
 		}
 	}
 	va_end(ap);

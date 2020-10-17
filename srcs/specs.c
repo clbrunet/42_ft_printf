@@ -62,6 +62,9 @@ static void	specs_to_zero(t_conv_specs *specs)
 	specs->plus = 0;
 	specs->width = 0;
 	specs->precision = -1;
+	specs->l = 0;
+	specs->h = 0;
+	specs->specifier = 0;
 }
 
 static void	set_flags(const char **format, t_conv_specs *specs)
@@ -120,6 +123,16 @@ int			parse_conv_specs(va_list *ap, const char **format,
 	else if (ft_isdigit(**format))
 		specs->width = atoi_trim(format);
 	parse_precision(ap, format, specs);
+	while (**format == 'l')
+	{
+		specs->l++;
+		(*format)++;
+	}
+	while (**format == 'h')
+	{
+		specs->h++;
+		(*format)++;
+	}
 	if (specs->minus)
 		specs->zero = 0;
 	if (specs->plus)

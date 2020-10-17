@@ -1,17 +1,22 @@
 NAME	=	libftprintf.a
 
-SRCS	=	srcs/ft_printf.c	\
-			srcs/convert.c		\
-			srcs/specs.c		\
-			srcs/putnbr_specs.c	\
-			srcs/putchar_specs.c\
-			srcs/putstr_specs.c	\
-			srcs/puthex_specs.c
+SRCS	=	srcs/ft_printf.c				\
+			srcs/convert.c					\
+			srcs/specs.c					\
+			srcs/putchar_specs.c			\
+			srcs/putstr_specs.c				\
+			srcs/nbr_utils.c				\
+			srcs/putnbr_specs.c				\
+			srcs/puthex_specs.c				\
+			srcs/float_utils.c				\
+			srcs/putfloat_specs.c			\
+			srcs/putcompactfloat_specs.c	\
+			srcs/putexponent_specs.c
 
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
+CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft -g
 
 all		:	$(NAME)
 
@@ -26,7 +31,7 @@ $(NAME)	:	libft.a $(OBJS)
 
 
 main	:	$(NAME)
-			$(CC) main.c debug.c -L. -lftprintf -Iincludes -g
+			$(CC) -static main.c debug.c -L. -lftprintf -Iincludes -g
 
 test	:	main
 			@echo "=================================================================================\n"
