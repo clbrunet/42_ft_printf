@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   hex_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/10/20 21:42:00 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/10/20 21:42:00 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+int	hexlen(unsigned long long n, int len)
 {
-	if (specs->minus)
-		putchar_count(c);
-	while (specs->width > 1)
-	{
-		if (specs->zero)
-			putchar_count('0');
-		else
-			putchar_count(' ');
-		specs->width--;
-	}
-	if (!specs->minus)
-		putchar_count(c);
+	if (n > 15)
+		return (hexlen(n / 16, len + 1));
+	return (len);
 }
+

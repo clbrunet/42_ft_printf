@@ -35,6 +35,8 @@ int				get_g_res(void);
 void			putchar_count(char c);
 void			putstr_count(char *s);
 
+int				hexlen(unsigned long long n, int len);
+
 int				nbrlen(unsigned long long n, int len);
 void			putnbr_ull_count(unsigned long long n);
 int				nbradd_len(int sign, t_conv_specs *specs);
@@ -44,9 +46,10 @@ int				is_trailing_zero(long double f, int left);
 
 void			putchar_specs(char c, t_conv_specs *specs);
 void			putstr_specs(char *s, t_conv_specs *specs);
-void			puthex_specs(unsigned long long n, t_conv_specs *specs);
+void			putptr_specs(unsigned long long n, t_conv_specs *specs);
 void			putnbr_specs(unsigned long long n, int sign,
 		t_conv_specs *specs);
+void			puthex_specs(unsigned long long n, t_conv_specs *specs);
 void			putfloat_specs(long double f, int sign, t_conv_specs *specs);
 void			putcompactfloat_specs(long double f, int sign,
 		t_conv_specs *specs);

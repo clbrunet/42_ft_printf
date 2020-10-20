@@ -20,13 +20,6 @@ static int	addlen(unsigned long long n, t_conv_specs *specs)
 	return (0);
 }
 
-static int	hexlen(unsigned long long n, int len)
-{
-	if (n > 15)
-		return (hexlen(n / 16, len + 1));
-	return (len);
-}
-
 static void	puthex_ull(unsigned long long n, char specifier)
 {
 	char	*hex_lowercase;
@@ -82,7 +75,10 @@ void	puthex_specs(unsigned long long n, t_conv_specs *specs)
 		len = n_len + addlen(n, specs);
 	while (specs->width > len)
 	{
-		putchar_count((specs->zero && specs->precision < 0) ? '0' : ' ');
+		if (specs->zero && specs->precision < 0)
+			putchar_count('0');
+		else
+			putchar_count(' ');
 		specs->width--;
 	}
 	if (!specs->minus)

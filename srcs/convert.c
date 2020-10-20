@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 #include "debug.h"
-#include <stdarg.h>
 
 int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 {
@@ -24,7 +23,7 @@ int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 	else if (specifier == 's')
 		putstr_specs(va_arg(*ap, char *), specs);
 	else if (specifier == 'p')
-		puthex_specs((unsigned long long)va_arg(*ap, void *), specs);
+		putptr_specs((unsigned long long)va_arg(*ap, void *), specs);
 	else if (specifier == 'd' || specifier == 'i')
 	{
 		if (specs->l == 0)

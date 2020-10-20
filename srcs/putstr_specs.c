@@ -31,18 +31,18 @@ void		putstr_specs(char *s, t_conv_specs *specs)
 	int		len;
 
 	if (!s)
-	{
-		specs->precision = -1;
-		putstr_specs("(null)", specs);
-		return ;
-	}
+		return (putstr_specs("(null)", specs));
 	len = ft_strlen(s);
 	if (specs->minus)
 		putstr_precision(s, specs);
-	while (specs->width > ((specs->precision >= 0 && specs->precision < len)
-				? specs->precision : len))
+	if (specs->precision >= 0 && specs->precision < len)
+		len = specs->precision;
+	while (specs->width > len)
 	{
-		putchar_count(' ');
+		if (specs->zero)
+			putchar_count('0');
+		else
+			putchar_count(' ');
 		specs->width--;
 	}
 	if (!specs->minus)

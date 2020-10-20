@@ -5,6 +5,8 @@ SRCS	=	srcs/ft_printf.c				\
 			srcs/specs.c					\
 			srcs/putchar_specs.c			\
 			srcs/putstr_specs.c				\
+			srcs/hex_utils.c				\
+			srcs/putptr_specs.c				\
 			srcs/nbr_utils.c				\
 			srcs/putnbr_specs.c				\
 			srcs/puthex_specs.c				\
@@ -16,7 +18,7 @@ SRCS	=	srcs/ft_printf.c				\
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft -g
+CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
 
 all		:	$(NAME)
 
@@ -31,7 +33,7 @@ $(NAME)	:	libft.a $(OBJS)
 
 
 main	:	$(NAME)
-			$(CC) -static main.c debug.c -L. -lftprintf -Iincludes -g
+			$(CC) main.c debug.c -L. -lftprintf -Iincludes
 
 test	:	main
 			@echo "=================================================================================\n"
