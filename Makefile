@@ -27,7 +27,7 @@ libft.a	:
 
 $(NAME)	:	libft.a $(OBJS)
 			cp libft.a $(NAME)
-			ar rcs -o $(NAME) $(OBJS)
+			ar rcs $(NAME) $(OBJS)
 
 
 main	:	$(NAME)

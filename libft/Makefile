@@ -60,7 +60,7 @@ CFLAGS	=	-Wall -Wextra -Werror -I. -g -fPIC
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-			ar rcs -o $(NAME) $(OBJS)
+			ar rcs $(NAME) $(OBJS)
 
 clean	:
 			rm -f $(OBJS)
