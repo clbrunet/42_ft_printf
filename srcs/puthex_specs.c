@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 20:35:57 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/08 20:50:45 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/02 06:52:59 by runner           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ static void	puthex_precision(unsigned long long n, int len, t_conv_specs *specs)
 {
 	int		precision;
 
-	if (n && (specs->specifier == 'p' || (specs->specifier == 'x' && specs->sharp)))
-		putstr_count("0x");
-	else if (n && (specs->specifier == 'X' && specs->sharp))
-		putstr_count("0X");
+	if ((!specs->zero || specs->precision >= 0) && specs->sharp && n)
+	{
+		if (specs->specifier == 'x')
+			putstr_count("0x");
+		else
+			putstr_count("0X");
+	}
 	precision = specs->precision;
 	while (precision > len)
 	{
@@ -73,6 +76,13 @@ void	puthex_specs(unsigned long long n, t_conv_specs *specs)
 		len = specs->precision + addlen(n, specs);
 	else
 		len = n_len + addlen(n, specs);
+	if (specs->zero && specs->precision < 0 && specs->sharp && n)
+	{
+		if (specs->specifier == 'x')
+			putstr_count("0x");
+		else
+			putstr_count("0X");
+	}
 	while (specs->width > len)
 	{
 		if (specs->zero && specs->precision < 0)

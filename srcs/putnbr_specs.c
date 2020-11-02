@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 11:33:27 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/06 12:54:33 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/02 06:16:22 by runner           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,26 @@ void		putnbr_specs(unsigned long long n, int sign, t_conv_specs *specs)
 
 	if (!specs->precision && !n)
 	{
-		while (specs->width)
+		if (specs->minus)
+		{
+			if (specs->plus)
+				putchar_count('+');
+			else if (specs->blank)
+				putchar_count(' ');
+		}
+		if (specs->plus || specs->blank)
+			specs->width--;
+		while (specs->width > 0)
 		{
 			putchar_count(' ');
 			specs->width--;
+		}
+		if (!specs->minus)
+		{
+			if (specs->plus)
+				putchar_count('+');
+			else if (specs->blank)
+				putchar_count(' ');
 		}
 		return ;
 	}
