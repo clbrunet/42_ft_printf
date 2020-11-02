@@ -18,7 +18,8 @@ SRCS	=	srcs/ft_printf.c				\
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
+CFLAGS	=	-Iincludes -L. -lft
+#CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
 
 all		:	$(NAME)
 

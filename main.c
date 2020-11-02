@@ -11,8 +11,8 @@ int		main(void)
 	char	precision3[100]	= "|%3.50e| ";
 	char	same4[100]		= "|%25.25e| ";
 	double	f = 0.09004;
-	printf("|%#7x|", 33);
-	ft_printf("|%#7x|", 33);
+	printf("|%0*.*p|\n", 15, 6, NULL);
+	ft_printf("|%0*.*p|\n", 15, 6, NULL);
 	/* printf("----- TEST 0 -----\n"); */
 	/* res = printf(test0, f); */
 	/* printf("%i\n", res); */
