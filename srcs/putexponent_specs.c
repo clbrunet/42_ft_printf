@@ -33,7 +33,7 @@ static void	putexponent_precision(long double f, int sign, int exponent, t_conv_
 		precision = 6;
 	else
 		precision = specs->precision;
-	if (specs->specifier == 'e' && round_needed(f, precision, specs->precision))
+	if (specs->specifier == 'e' && round_needed(f, precision, n, specs->precision))
 		n++;
 	putnbr_ull_count(n);
 	if (precision || specs->sharp)
@@ -43,7 +43,7 @@ static void	putexponent_precision(long double f, int sign, int exponent, t_conv_
 		f *= 10;
 		n = (unsigned long long)f;
 		f -= n;
-		if (specs->specifier == 'e' && round_needed(f, precision, specs->precision))
+		if (specs->specifier == 'e' && round_needed(f, precision, -1, specs->precision))
 			n++;
 		putchar_count(n % 10 + '0');
 		if (specs->specifier == 'g' && is_trailing_zero(f, precision))
