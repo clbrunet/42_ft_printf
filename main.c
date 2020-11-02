@@ -11,8 +11,44 @@ int		main(void)
 	char	precision3[100]	= "|%3.50e| ";
 	char	same4[100]		= "|%25.25e| ";
 	double	f = 0.09004;
-	printf("|%#08.3x|\n", 8375);
-	ft_printf("|%#08.3x|\n", 8375);
+	printf("|%.0f|\n", -0.5);
+	ft_printf("|%.0f|\n", -0.5);
+	printf("\n");
+	printf("|%.0f|\n", -1.5);
+	ft_printf("|%.0f|\n", -1.5);
+	printf("\n");
+	printf("|%.0f|\n", -2.5);
+	ft_printf("|%.0f|\n", -2.5);
+	printf("\n");
+	printf("|%.0f|\n", -3.5);
+	ft_printf("|%.0f|\n", -3.5);
+	printf("\n");
+	printf("|%.0f|\n", -4.5);
+	ft_printf("|%.0f|\n", -4.5);
+	printf("\n");
+	printf("|%.0f|\n", -5.5);
+	ft_printf("|%.0f|\n", -5.5);
+	printf("\n");
+	printf("|%.0f|\n", -6.5);
+	ft_printf("|%.0f|\n", -6.5);
+	printf("\n");
+	printf("|%.0f|\n", -7.5);
+	ft_printf("|%.0f|\n", -7.5);
+	printf("\n");
+	printf("|%.0f|\n", -8.5);
+	ft_printf("|%.0f|\n", -8.5);
+	printf("\n");
+	printf("|%.0f|\n", -9.5);
+	ft_printf("|%.0f|\n", -9.5);
+	printf("\n");
+	printf("|%.0f|\n", -10.5);
+	ft_printf("|%.0f|\n", -10.5);
+	printf("\n");
+	printf("|%.0f|\n", -11.5);
+	ft_printf("|%.0f|\n", -11.5);
+	printf("\n");
+	printf("|%.0f|\n", -12.5);
+	ft_printf("|%.0f|\n", -12.5);
 	/* printf("----- TEST 0 -----\n"); */
 	/* res = printf(test0, f); */
 	/* printf("%i\n", res); */

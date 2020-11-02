@@ -41,7 +41,7 @@ int				nbrlen(unsigned long long n, int len);
 void			putnbr_ull_count(unsigned long long n);
 int				nbradd_len(int sign, t_conv_specs *specs);
 
-int				round_needed(long double f, int left);
+int				round_needed(long double f, int left, int precision);
 int				is_trailing_zero(long double f, int left);
 
 void			putchar_specs(char c, t_conv_specs *specs);

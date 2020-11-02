@@ -13,18 +13,21 @@
 #include "ft_printf.h"
 #include "debug.h"
 
-int		round_needed(long double f, int left)
+int		round_needed(long double f, int left, int precision)
 {
 	unsigned long long		n;
 
 	f *= 10;
 	n = (unsigned long long)f;
+	/* printf("%Lf, %llu, %i", f, n, precision); */
+	if (precision == 0)
+		return (n >= 5);
 	if (!left)
 		return (n >= 5);
 	if (n < 9)
 		return (0);
 	f -= n;
-	return (round_needed(f, left - 1));
+	return (round_needed(f, left - 1, precision));
 }
 
 int		is_trailing_zero(long double f, int left)

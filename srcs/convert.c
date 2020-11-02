@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 09:34:07 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/13 13:20:59 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/02 07:16:07 by runner           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 			ld = (long double)va_arg(*ap, double);
 		else
 			ld = va_arg(*ap, long double);
-		if (ld < 0)
+		if (ld < 0 || (ld == -0.0 && 1 / ld == 1 / -0.0))
 			putfloat_specs((long double)(ld * -1), -1, specs);
 		else
 			putfloat_specs((long double)ld, 1, specs);
