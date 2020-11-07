@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 20:35:57 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/02 06:52:59 by runner           ###   ########.fr       */
+/*   Updated: 2020/11/07 11:53:05 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	puthex_precision(unsigned long long n, int len, t_conv_specs *specs)
 	puthex_ull(n, specs->specifier);
 }
 
-void	puthex_specs(unsigned long long n, t_conv_specs *specs)
+void		puthex_specs(unsigned long long n, t_conv_specs *specs)
 {
 	int		n_len;
 	int		len;

@@ -43,7 +43,7 @@ static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 		f *= 10;
 		n = (unsigned long long)f;
 		f -= n;
-		if (specs->specifier == 'f' && round_needed(f, precision, -1, specs->precision))
+		if (specs->specifier == 'f' && round_needed(f, precision, 0, -1))
 			n++;
 		putchar_count(n % 10 + '0');
 		if (specs->specifier == 'g' && is_trailing_zero(f, precision))

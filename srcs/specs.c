@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 09:35:00 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/04 13:04:30 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/07 11:12:11 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,6 @@ static int	atoi_trim(const char **nptr)
 		(*nptr)++;
 	}
 	return (n * sign);
-}
-
-static int	isflag(char c)
-{
-	int		flag_id;
-
-	flag_id = 0;
-	if (c == '#')
-		flag_id = 1;
-	else if (c == '0')
-		flag_id = 2;
-	else if (c == '-')
-		flag_id = 3;
-	else if (c == ' ')
-		flag_id = 4;
-	else if (c == '+')
-		flag_id = 5;
-	return (flag_id);
-}
-
-static void	specs_to_zero(t_conv_specs *specs)
-{
-	specs->sharp = 0;
-	specs->zero = 0;
-	specs->minus = 0;
-	specs->blank = 0;
-	specs->plus = 0;
-	specs->width = 0;
-	specs->precision = -1;
-	specs->l = 0;
-	specs->h = 0;
-	specs->specifier = 0;
 }
 
 static void	set_flags(const char **format, t_conv_specs *specs)
@@ -106,7 +74,21 @@ static void	parse_precision(va_list *ap, const char **format,
 	}
 }
 
-int			parse_conv_specs(va_list *ap, const char **format,
+static void	parse_size(const char **format, t_conv_specs *specs)
+{
+	while (**format == 'l')
+	{
+		specs->l++;
+		(*format)++;
+	}
+	while (**format == 'h')
+	{
+		specs->h++;
+		(*format)++;
+	}
+}
+
+void		parse_conv_specs(va_list *ap, const char **format,
 		t_conv_specs *specs)
 {
 	set_flags(format, specs);
@@ -123,19 +105,9 @@ int			parse_conv_specs(va_list *ap, const char **format,
 	else if (ft_isdigit(**format))
 		specs->width = atoi_trim(format);
 	parse_precision(ap, format, specs);
-	while (**format == 'l')
-	{
-		specs->l++;
-		(*format)++;
-	}
-	while (**format == 'h')
-	{
-		specs->h++;
-		(*format)++;
-	}
+	parse_size(format, specs);
 	if (specs->minus)
 		specs->zero = 0;
 	if (specs->plus)
 		specs->blank = 0;
-	return (1);
 }

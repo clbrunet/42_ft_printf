@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 13:13:45 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/06 18:45:43 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/07 11:16:58 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void			putcompactfloat_specs(long double f, int sign,
 		t_conv_specs *specs);
 void			putexponent_specs(long double f, int sign, t_conv_specs *specs);
 
-int				parse_conv_specs(va_list *ap, const char **format,
+int				isflag(char c);
+void			specs_to_zero(t_conv_specs *specs);
+void			parse_conv_specs(va_list *ap, const char **format,
 		t_conv_specs *specs);
 int				convert(va_list *ap, char specifier, t_conv_specs *specs);
 

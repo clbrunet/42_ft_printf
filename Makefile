@@ -3,6 +3,7 @@ NAME	=	libftprintf.a
 SRCS	=	srcs/ft_printf.c				\
 			srcs/convert.c					\
 			srcs/specs.c					\
+			srcs/specs2.c					\
 			srcs/putchar_specs.c			\
 			srcs/putstr_specs.c				\
 			srcs/hex_utils.c				\
@@ -18,8 +19,8 @@ SRCS	=	srcs/ft_printf.c				\
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-Iincludes -L. -lft
-#CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
+# CFLAGS	=	-Iincludes -L. -lft
+CFLAGS	=	-Wall -Wextra -Werror -Iincludes -L. -lft
 
 all		:	$(NAME)
 

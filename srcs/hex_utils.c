@@ -19,4 +19,3 @@ int	hexlen(unsigned long long n, int len)
 		return (hexlen(n / 16, len + 1));
 	return (len);
 }
-

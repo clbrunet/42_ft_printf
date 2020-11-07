@@ -27,7 +27,7 @@ void	putnbr_ull_count(unsigned long long n)
 	putchar_count(n % 10 + '0');
 }
 
-int	nbradd_len(int sign, t_conv_specs *specs)
+int		nbradd_len(int sign, t_conv_specs *specs)
 {
 	if (sign == -1 || specs->blank || specs->plus)
 		return (1);

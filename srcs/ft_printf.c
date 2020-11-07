@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 13:12:34 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/09/26 13:12:34 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/07 10:45:36 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	putstr_count(char *s)
 
 int		ft_printf(const char *format, ...)
 {
-	va_list	ap;
-	t_conv_specs specs;
+	va_list			ap;
+	t_conv_specs	specs;
 
 	g_res = 0;
 	va_start(ap, format);
