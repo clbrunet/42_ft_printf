@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:19:29 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/18 07:41:38 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/18 15:41:58 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static void	putexponent_precision(long double f, int sign, int exponent, t_conv_
 		precision = specs->precision;
 	if (specs->specifier == 'e' && round_needed(f, precision, n, specs->precision))
 		n++;
+	if (n == 10)
+	{
+		n = 1;
+		exponent++;
+	}
 	putnbr_ull_count(n);
 	if (precision || specs->sharp)
 		putchar_count('.');
@@ -64,10 +69,12 @@ static void	putexponent_precision(long double f, int sign, int exponent, t_conv_
 
 void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 {
-	int		exponent_sign;
-	int		exponent;
-	int		len;
+	int			exponent_sign;
+	int			exponent;
+	int			len;
+	/* long double	f_bp; */
 
+	/* f_bp = f; */
 	exponent = 0;
 	if (f <= -10 || 10 <= f || f == 0)
 		exponent_sign = 1;
@@ -81,11 +88,22 @@ void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 			f *= 10;
 		exponent++;
 	}
-	if (f > (long double)9.999999999999999)
-	{
-		exponent--;
-		f /= 10;
-	}
+	/* if (f > (long double)9.99999999) */
+	/* { */
+	/* 	if (f_bp <= -10 || 10 <= f_bp) */
+	/* 		exponent++; */
+	/* 	else */
+	/* 		exponent--; */
+	/* 	f /= 10; */
+	/* } */
+	/* if (f < (long double)9.999) */
+	/* { */
+	/* 	if (f_bp <= -10 || 10 <= f_bp) */
+	/* 		exponent--; */
+	/* 	else */
+	/* 		exponent++; */
+	/* 	f *= 10; */
+	/* } */
 	if (specs->minus)
 		putexponent_precision(f, sign, exponent * exponent_sign, specs);
 	if (specs->zero)
