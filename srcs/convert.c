@@ -75,7 +75,7 @@ int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 			ld = (long double)va_arg(*ap, double);
 		else
 			ld = va_arg(*ap, long double);
-		if (ld < 0)
+		if (ld < 0 || (ld == -0.0 && 1 / ld == 1 / -0.0))
 			putexponent_specs(ld * -1, -1, specs);
 		else
 			putexponent_specs(ld, 1, specs);
