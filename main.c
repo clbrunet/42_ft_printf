@@ -10,7 +10,7 @@ int		main(void)
 	char	width2[100]		= "|%25.10e| ";
 	char	precision3[100]	= "|%3.50e| ";
 	char	same4[100]		= "|%25.25e| ";
-	double	f = -0.0;
+	double	f = 0.0000001;
 
 	printf("----- TEST 0 -----\n");
 	res = printf(test0, f);

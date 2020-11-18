@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:19:29 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/12 17:19:29 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/18 07:41:38 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 	int		exponent;
 	int		len;
 
-	/* if (f == 0) */
-	/* { */
-	/* 	return ; */
-	/* } */
 	exponent = 0;
 	if (f <= -10 || 10 <= f || f == 0)
 		exponent_sign = 1;
@@ -84,6 +80,11 @@ void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 		else
 			f *= 10;
 		exponent++;
+	}
+	if (f > (long double)9.999999999999999)
+	{
+		exponent--;
+		f /= 10;
 	}
 	if (specs->minus)
 		putexponent_precision(f, sign, exponent * exponent_sign, specs);
