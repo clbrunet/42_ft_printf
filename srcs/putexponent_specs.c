@@ -68,12 +68,16 @@ void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 	int		exponent;
 	int		len;
 
+	/* if (f == 0) */
+	/* { */
+	/* 	return ; */
+	/* } */
 	exponent = 0;
-	if (f <= -10 || 10 <= f)
+	if (f <= -10 || 10 <= f || f == 0)
 		exponent_sign = 1;
 	else
 		exponent_sign = -1;
-	while ((-1 < f && f < 1) || (f <= -10 || 10 < f))
+	while (f != 0 && ((-1 < f && f < 1) || (f <= -10 || 10 < f)))
 	{
 		if (f <= -10 || 10 <= f)
 			f /= 10;
