@@ -6,17 +6,16 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 09:34:07 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/02 07:16:07 by runner           ###   ########.fr       */
+/*   Updated: 2020/11/20 08:16:10 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-int		convert(va_list *ap, char specifier, t_conv_specs *specs)
+void	convert(va_list *ap, char specifier, t_conv_specs *specs)
 {
 	long long		ll;
-	long double		ld;
 
 	if (specifier == 'c')
 		putchar_specs((char)va_arg(*ap, int), specs);
@@ -37,7 +36,13 @@ int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 		else
 			putnbr_specs((unsigned long long)ll, 1, specs);
 	}
-	else if (specifier == 'u')
+	else
+		convert2(ap, specifier, specs);
+}
+
+void	convert2(va_list *ap, char specifier, t_conv_specs *specs)
+{
+	if (specifier == 'u')
 		putnbr_specs(va_arg(*ap, unsigned long long), 1, specs);
 	else if (specifier == 'x')
 		puthex_specs(va_arg(*ap, unsigned long long), specs);
@@ -47,38 +52,28 @@ int		convert(va_list *ap, char specifier, t_conv_specs *specs)
 		putchar_specs('%', specs);
 	else if (specifier == 'n')
 		*(va_arg(*ap, int *)) = get_g_res();
-	else if (specifier == 'f')
+	else
+		convert3(ap, specifier, specs);
+}
+
+void	convert3(va_list *ap, char specifier, t_conv_specs *specs)
+{
+	long double		ld;
+
+	if (specifier == 'f')
 	{
-		if (specs->l == 0)
-			ld = (long double)va_arg(*ap, double);
-		else
-			ld = va_arg(*ap, long double);
+		ld = (long double)va_arg(*ap, double);
 		if (ld < 0 || (ld == -0.0 && 1 / ld == 1 / -0.0))
 			putfloat_specs((long double)(ld * -1), -1, specs);
 		else
 			putfloat_specs((long double)ld, 1, specs);
 	}
-	else if (specifier == 'g')
-	{
-		if (specs->l == 0)
-			ld = (long double)va_arg(*ap, double);
-		else
-			ld = va_arg(*ap, long double);
-		if (ld < 0)
-			putcompactfloat_specs((long double)(ld * -1), -1, specs);
-		else
-			putcompactfloat_specs((long double)ld, 1, specs);
-	}
 	else if (specifier == 'e')
 	{
-		if (specs->l == 0)
-			ld = (long double)va_arg(*ap, double);
-		else
-			ld = va_arg(*ap, long double);
+		ld = (long double)va_arg(*ap, double);
 		if (ld < 0 || (ld == -0.0 && 1 / ld == 1 / -0.0))
 			putexponent_specs(ld * -1, -1, specs);
 		else
 			putexponent_specs(ld, 1, specs);
 	}
-	return (1);
 }

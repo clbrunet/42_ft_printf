@@ -33,3 +33,13 @@ int		nbradd_len(int sign, t_conv_specs *specs)
 		return (1);
 	return (0);
 }
+
+void	putnbr_prefix(int sign, t_conv_specs *specs)
+{
+	if (sign == -1)
+		putchar_count('-');
+	else if (specs->plus)
+		putchar_count('+');
+	else if (specs->blank)
+		putchar_count(' ');
+}

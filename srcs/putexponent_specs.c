@@ -6,54 +6,15 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:19:29 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/18 15:41:58 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:42:26 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-static void	putexponent_precision(long double f, int sign, int exponent, t_conv_specs *specs)
+static void	putexponent_suffix(int exponent)
 {
-	unsigned long long	n;
-	int					precision;
-
-	if (!specs->zero)
-	{
-		if (sign == -1)
-			putchar_count('-');
-		else if (specs->plus)
-			putchar_count('+');
-		else if (specs->blank)
-			putchar_count(' ');
-	}
-	n = (unsigned long long)f;
-	f -= n;
-	if (specs->precision < 0)
-		precision = 6;
-	else
-		precision = specs->precision;
-	if (specs->specifier == 'e' && round_needed(f, precision, n, specs->precision))
-		n++;
-	if (n == 10)
-	{
-		n = 1;
-		exponent++;
-	}
-	putnbr_ull_count(n);
-	if (precision || specs->sharp)
-		putchar_count('.');
-	while (precision--)
-	{
-		f *= 10;
-		n = (unsigned long long)f;
-		f -= n;
-		if (specs->specifier == 'e' && round_needed(f, precision, -1, specs->precision))
-			n++;
-		putchar_count(n % 10 + '0');
-		if (specs->specifier == 'g' && is_trailing_zero(f, precision))
-			break ;
-	}
 	putchar_count('e');
 	if (exponent < 0)
 	{
@@ -67,65 +28,60 @@ static void	putexponent_precision(long double f, int sign, int exponent, t_conv_
 	putnbr_ull_count((unsigned long long)exponent);
 }
 
+static void	putexponent_int(long double *f, int *exponent, int precision,
+		t_conv_specs *specs)
+{
+	unsigned long long	n;
+
+	n = (unsigned long long)*f;
+	*f -= n;
+	if (round_needed(*f, precision, n, specs->precision))
+		n++;
+	if (n == 10)
+	{
+		n = 1;
+		(*exponent)++;
+	}
+	putnbr_ull_count(n);
+}
+
+static void	putexponent_precision(long double f, int sign, int exponent,
+		t_conv_specs *specs)
+{
+	unsigned long long	n;
+	int					precision;
+
+	if (!specs->zero)
+		putnbr_prefix(sign, specs);
+	precision = get_exponent_precision(specs);
+	putexponent_int(&f, &exponent, precision, specs);
+	if (precision || specs->sharp)
+		putchar_count('.');
+	while (precision--)
+	{
+		f *= 10;
+		n = (unsigned long long)f;
+		f -= n;
+		if (round_needed(f, precision, -1, specs->precision))
+			n++;
+		putchar_count(n % 10 + '0');
+	}
+	putexponent_suffix(exponent);
+}
+
 void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 {
 	int			exponent_sign;
 	int			exponent;
 	int			len;
-	/* long double	f_bp; */
 
-	/* f_bp = f; */
-	exponent = 0;
-	if (f <= -10 || 10 <= f || f == 0)
-		exponent_sign = 1;
-	else
-		exponent_sign = -1;
-	while (f != 0 && ((-1 < f && f < 1) || (f <= -10 || 10 < f)))
-	{
-		if (f <= -10 || 10 <= f)
-			f /= 10;
-		else
-			f *= 10;
-		exponent++;
-	}
-	/* if (f > (long double)9.99999999) */
-	/* { */
-	/* 	if (f_bp <= -10 || 10 <= f_bp) */
-	/* 		exponent++; */
-	/* 	else */
-	/* 		exponent--; */
-	/* 	f /= 10; */
-	/* } */
-	/* if (f < (long double)9.999) */
-	/* { */
-	/* 	if (f_bp <= -10 || 10 <= f_bp) */
-	/* 		exponent--; */
-	/* 	else */
-	/* 		exponent++; */
-	/* 	f *= 10; */
-	/* } */
+	exponent_sign = get_exponent_sign(f);
+	exponent = get_exponent(&f);
 	if (specs->minus)
 		putexponent_precision(f, sign, exponent * exponent_sign, specs);
 	if (specs->zero)
-	{
-		if (sign == -1)
-			putchar_count('-');
-		else if (specs->plus)
-			putchar_count('+');
-		else if (specs->blank)
-			putchar_count(' ');
-	}
-	if (specs->precision > 0)
-		len = nbradd_len(sign, specs) + 4 + specs->precision;
-	else if (specs->precision < 0)
-		len = nbradd_len(sign, specs) + 10;
-	else if (specs->sharp)
-		len = nbradd_len(sign, specs) + 4;
-	else
-		len = nbradd_len(sign, specs) + 3;
-	len += nbrlen((unsigned long long)exponent, 1);
-	if (exponent < 10)
-		len++;
+		putnbr_prefix(sign, specs);
+	len = exponentlen_specs(sign, exponent, specs);
 	while (specs->width > len)
 	{
 		if (specs->zero)

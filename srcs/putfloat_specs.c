@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 12:00:24 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/09 21:42:35 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/20 09:09:39 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,14 @@ static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 	int					precision;
 
 	if (!specs->zero)
-	{
-		if (sign == -1)
-			putchar_count('-');
-		else if (specs->plus)
-			putchar_count('+');
-		else if (specs->blank)
-			putchar_count(' ');
-	}
+		putnbr_prefix(sign, specs);
 	n = (unsigned long long)f;
 	f -= n;
 	if (specs->precision < 0)
 		precision = 6;
 	else
 		precision = specs->precision;
-	if (specs->specifier == 'f' && round_needed(f, precision, n, specs->precision))
+	if (round_needed(f, precision, n, specs->precision))
 		n++;
 	putnbr_ull_count(n);
 	if (precision || specs->sharp)
@@ -43,39 +36,21 @@ static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 		f *= 10;
 		n = (unsigned long long)f;
 		f -= n;
-		if (specs->specifier == 'f' && round_needed(f, precision, 0, -1))
+		if (round_needed(f, precision, 0, -1))
 			n++;
 		putchar_count(n % 10 + '0');
-		if (specs->specifier == 'g' && is_trailing_zero(f, precision))
-			break ;
 	}
 }
 
 void		putfloat_specs(long double f, int sign, t_conv_specs *specs)
 {
-	int		int_len;
 	int		len;
 
-	int_len = nbrlen((unsigned long long)f, 1);
 	if (specs->minus)
 		putfloat_precision(f, sign, specs);
 	if (specs->zero)
-	{
-		if (sign == -1)
-			putchar_count('-');
-		else if (specs->plus)
-			putchar_count('+');
-		else if (specs->blank)
-			putchar_count(' ');
-	}
-	if (specs->precision > 0)
-		len = nbradd_len(sign, specs) + int_len + specs->precision + 1;
-	else if (specs->precision < 0)
-		len = nbradd_len(sign, specs) + int_len + 7;
-	else if (specs->sharp)
-		len = nbradd_len(sign, specs) + int_len + 1;
-	else
-		len = nbradd_len(sign, specs) + int_len;
+		putnbr_prefix(sign, specs);
+	len = floatlen_specs(f, sign, specs);
 	while (specs->width > len)
 	{
 		if (specs->zero)

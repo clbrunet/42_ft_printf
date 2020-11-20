@@ -6,18 +6,20 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 20:35:57 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/07 11:53:05 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:11:20 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-static int	addlen(unsigned long long n, t_conv_specs *specs)
+static void	puthex_null(t_conv_specs *specs)
 {
-	if (n && (specs->specifier == 'p' || specs->sharp))
-		return (2);
-	return (0);
+	while (specs->width)
+	{
+		putchar_count(' ');
+		specs->width--;
+	}
 }
 
 static void	puthex_ull(unsigned long long n, char specifier)
@@ -40,12 +42,7 @@ static void	puthex_precision(unsigned long long n, int len, t_conv_specs *specs)
 	int		precision;
 
 	if ((!specs->zero || specs->precision >= 0) && specs->sharp && n)
-	{
-		if (specs->specifier == 'x')
-			putstr_count("0x");
-		else
-			putstr_count("0X");
-	}
+		puthex_prefix(specs->specifier);
 	precision = specs->precision;
 	while (precision > len)
 	{
@@ -57,32 +54,17 @@ static void	puthex_precision(unsigned long long n, int len, t_conv_specs *specs)
 
 void		puthex_specs(unsigned long long n, t_conv_specs *specs)
 {
-	int		n_len;
 	int		len;
+	int		n_len;
 
 	if (!specs->precision && !n)
-	{
-		while (specs->width)
-		{
-			putchar_count(' ');
-			specs->width--;
-		}
-		return ;
-	}
+		return (puthex_null(specs));
 	n_len = hexlen(n, 1);
 	if (specs->minus)
 		puthex_precision(n, n_len, specs);
-	if (specs->precision > n_len)
-		len = specs->precision + addlen(n, specs);
-	else
-		len = n_len + addlen(n, specs);
 	if (specs->zero && specs->precision < 0 && specs->sharp && n)
-	{
-		if (specs->specifier == 'x')
-			putstr_count("0x");
-		else
-			putstr_count("0X");
-	}
+		puthex_prefix(specs->specifier);
+	len = hexlen_specs(n, n_len, specs);
 	while (specs->width > len)
 	{
 		if (specs->zero && specs->precision < 0)

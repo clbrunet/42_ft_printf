@@ -49,14 +49,7 @@ void		putptr_specs(unsigned long long n, t_conv_specs *specs)
 		putptr_precision(n, n_len, specs);
 	if (specs->zero && specs->precision < 0)
 		putstr_count("0x");
-	if (!n && !specs->precision)
-		len = 2;
-	else if (!n && specs->precision < 0)
-		len = 3;
-	else if (!n || specs->precision > n_len)
-		len = specs->precision + 2;
-	else
-		len = n_len + 2;
+	len = ptrlen_specs(n, n_len, specs);
 	while (specs->width > len)
 	{
 		if (specs->zero && specs->precision < 0)

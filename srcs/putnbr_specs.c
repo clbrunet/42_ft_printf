@@ -38,16 +38,6 @@ static void	put00case(t_conv_specs *specs)
 	}
 }
 
-static void	putnbr_prefix(int sign, t_conv_specs *specs)
-{
-	if (sign == -1)
-		putchar_count('-');
-	else if (specs->plus)
-		putchar_count('+');
-	else if (specs->blank)
-		putchar_count(' ');
-}
-
 static void	putnbr_precision(unsigned long long n, int sign, int int_len,
 		t_conv_specs *specs)
 {

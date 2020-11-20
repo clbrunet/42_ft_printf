@@ -13,7 +13,7 @@ SRCS	=	srcs/ft_printf.c				\
 			srcs/puthex_specs.c				\
 			srcs/float_utils.c				\
 			srcs/putfloat_specs.c			\
-			srcs/putcompactfloat_specs.c	\
+			srcs/exponent_utils.c			\
 			srcs/putexponent_specs.c
 
 OBJS	=	$(SRCS:.c=.o)

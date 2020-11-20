@@ -5,18 +5,13 @@
 int		main(void)
 {
 	int res;
-	char	test0[100]		= "|%.2e| ";
-	char	nothing1[100]	= "|%e| ";
-	char	width2[100]		= "|%25.10e| ";
-	char	precision3[100]	= "|%3.50e| ";
-	char	same4[100]		= "|%25.25e| ";
-	double	f = 0.0000001;
+	char	nothing1[100]	= "|%i| ";
+	char	width2[100]		= "|%25.10i| ";
+	char	precision3[100]	= "|%3.50i| ";
+	char	same4[100]		= "|%25.25i| ";
+	char	test5[100]		= "|%.2i| ";
+	int f = -236;
 
-	printf("----- TEST 0 -----\n");
-	res = printf(test0, f);
-	printf("%i\n", res);
-	res = ft_printf(test0, f);
-	printf("%i\n", res);
 	printf("----- TEST 1 -----\n");
 	res = printf(nothing1, f);
 	printf("%i\n", res);
@@ -37,8 +32,9 @@ int		main(void)
 	printf("%i\n", res);
 	res = ft_printf(same4, f);
 	printf("%i\n", res);
-
-
-	/* double	f = 0.09004; */
-	/* char	width2[100]		= "|%25.10g| "; */
+	printf("----- TEST 5 -----\n");
+	res = printf(test5, f);
+	printf("%i\n", res);
+	res = ft_printf(test5, f);
+	printf("%i\n", res);
 }
