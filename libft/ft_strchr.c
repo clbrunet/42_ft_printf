@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:47:28 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 13:47:28 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+char	*ft_strchr(const char *s, int c)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
-	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
-	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	char	c_c;
+
+	c_c = (char)c;
+	while (*s && *s != c_c)
+		s++;
+	if (!c_c || *s == c_c)
+		return ((char *)s);
+	return ((char *)NULL);
 }

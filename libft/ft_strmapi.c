@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:53:41 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 13:53:41 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	char		*mapi;
+	char		*mapi_bp;
+	unsigned	i;
+
+	if (!s || !(mapi = malloc((ft_strlen(s) + 1) * sizeof(char))))
+		return ((char *)NULL);
+	mapi_bp = mapi;
+	i = 0;
+	while (*s)
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		*mapi = (*f)(i, *s);
+		mapi++;
+		s++;
+		i++;
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	*mapi = 0;
+	return (mapi_bp);
 }

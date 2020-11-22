@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:42:34 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 13:42:34 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+void	ft_bzero(void *s, size_t n)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
-	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
-	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	ft_memset(s, 0, n);
 }

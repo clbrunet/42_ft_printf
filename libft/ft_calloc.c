@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:49:24 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/18 14:36:21 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+void	*ft_calloc(size_t count, size_t size)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
-	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
-	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	void	*ptr;
+
+	if (!(ptr = malloc(count * size)))
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

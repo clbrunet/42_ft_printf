@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:42:57 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/18 09:50:58 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	unsigned char		*us_dst;
+	const unsigned char	*us_src;
+	unsigned char		uc_c;
+
+	us_dst = (unsigned char *)dst;
+	us_src = (unsigned char *)src;
+	uc_c = (unsigned char)c;
+	while (n--)
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		*us_dst = *(us_src++);
+		if (*us_dst == uc_c)
+			return ((void *)(us_dst + 1));
+		us_dst++;
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	return (NULL);
 }

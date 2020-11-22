@@ -51,7 +51,7 @@ void	convert2(va_list *ap, char specifier, t_conv_specs *specs)
 	else if (specifier == '%')
 		putchar_specs('%', specs);
 	else if (specifier == 'n')
-		*(va_arg(*ap, int *)) = get_g_res();
+		*(va_arg(*ap, int *)) = specs->chars;
 	else
 		convert3(ap, specifier, specs);
 }

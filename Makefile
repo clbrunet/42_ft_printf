@@ -18,23 +18,23 @@ SRCS	=	srcs/ft_printf.c				\
 
 OBJS	=	$(SRCS:.c=.o)
 
+LIBFT	=	libft/libft.a
+
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -Iincludes
+CFLAGS	=	-Wall -Wextra -Werror -I includes -I libft
 
 all		:	$(NAME)
 
-libft.a	:
-			make -C libft/
-			cp libft/libft.a .
-			cp libft/libft.h includes/
+$(LIBFT):
+			make bonus -C libft/
 
-$(NAME)	:	libft.a $(OBJS)
-			cp libft.a $(NAME)
+$(NAME)	:	$(LIBFT) $(OBJS)
+			cp libft/libft.a $(NAME)
 			ar rcs $(NAME) $(OBJS)
 
 
 main	:	$(NAME)
-			$(CC) main.c debug.c -L. -lftprintf -Iincludes
+			$(CC) main.c debug.c -L. -lftprintf -Iincludes -Ilibft
 
 test	:	main
 			@echo "=================================================================================\n"
@@ -46,7 +46,7 @@ clean	:
 
 fclean	:	clean
 			make -C libft/ fclean 
-			rm -f $(NAME) libft.a includes/libft.h
+			rm -f $(NAME) libft.a
 
 re		:	fclean all
 

@@ -18,23 +18,23 @@ static void	put00case(t_conv_specs *specs)
 	if (specs->minus)
 	{
 		if (specs->plus)
-			putchar_count('+');
+			putchar_count('+', specs);
 		else if (specs->blank)
-			putchar_count(' ');
+			putchar_count(' ', specs);
 	}
 	if (specs->plus || specs->blank)
 		specs->width--;
 	while (specs->width > 0)
 	{
-		putchar_count(' ');
+		putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)
 	{
 		if (specs->plus)
-			putchar_count('+');
+			putchar_count('+', specs);
 		else if (specs->blank)
-			putchar_count(' ');
+			putchar_count(' ', specs);
 	}
 }
 
@@ -48,10 +48,10 @@ static void	putnbr_precision(unsigned long long n, int sign, int int_len,
 		putnbr_prefix(sign, specs);
 	while (precision > int_len)
 	{
-		putchar_count('0');
+		putchar_count('0', specs);
 		precision--;
 	}
-	putnbr_ull_count(n);
+	putnbr_ull_count(n, specs);
 }
 
 void		putnbr_specs(unsigned long long n, int sign, t_conv_specs *specs)
@@ -73,9 +73,9 @@ void		putnbr_specs(unsigned long long n, int sign, t_conv_specs *specs)
 	while (specs->width > len + nbradd_len(sign, specs))
 	{
 		if (specs->zero && specs->precision < 0)
-			putchar_count('0');
+			putchar_count('0', specs);
 		else
-			putchar_count(' ');
+			putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)

@@ -13,14 +13,14 @@
 #include "ft_printf.h"
 #include "debug.h"
 
-static void	putptr_ull(unsigned long long n)
+static void	putptr_ull(unsigned long long n, t_conv_specs *specs)
 {
 	char	*hex;
 
 	hex = "0123456789abcdef";
 	if (n > 15)
-		putptr_ull(n / 16);
-	putchar_count(hex[n % 16]);
+		putptr_ull(n / 16, specs);
+	putchar_count(hex[n % 16], specs);
 }
 
 static void	putptr_precision(unsigned long long n, int len, t_conv_specs *specs)
@@ -28,15 +28,15 @@ static void	putptr_precision(unsigned long long n, int len, t_conv_specs *specs)
 	int		precision;
 
 	if (!specs->zero || specs->precision >= 0)
-		putstr_count("0x");
+		putstr_count("0x", specs);
 	precision = specs->precision;
 	while (precision > len)
 	{
-		putchar_count('0');
+		putchar_count('0', specs);
 		precision--;
 	}
 	if (n || specs->precision)
-		putptr_ull(n);
+		putptr_ull(n, specs);
 }
 
 void		putptr_specs(unsigned long long n, t_conv_specs *specs)
@@ -48,14 +48,14 @@ void		putptr_specs(unsigned long long n, t_conv_specs *specs)
 	if (specs->minus)
 		putptr_precision(n, n_len, specs);
 	if (specs->zero && specs->precision < 0)
-		putstr_count("0x");
+		putstr_count("0x", specs);
 	len = ptrlen_specs(n, n_len, specs);
 	while (specs->width > len)
 	{
 		if (specs->zero && specs->precision < 0)
-			putchar_count('0');
+			putchar_count('0', specs);
 		else
-			putchar_count(' ');
+			putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)

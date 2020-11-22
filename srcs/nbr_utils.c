@@ -20,11 +20,11 @@ int		nbrlen(unsigned long long n, int len)
 	return (len);
 }
 
-void	putnbr_ull_count(unsigned long long n)
+void	putnbr_ull_count(unsigned long long n, t_conv_specs *specs)
 {
 	if (n > 9)
-		putnbr_ull_count(n / 10);
-	putchar_count(n % 10 + '0');
+		putnbr_ull_count(n / 10, specs);
+	putchar_count(n % 10 + '0', specs);
 }
 
 int		nbradd_len(int sign, t_conv_specs *specs)
@@ -37,9 +37,9 @@ int		nbradd_len(int sign, t_conv_specs *specs)
 void	putnbr_prefix(int sign, t_conv_specs *specs)
 {
 	if (sign == -1)
-		putchar_count('-');
+		putchar_count('-', specs);
 	else if (specs->plus)
-		putchar_count('+');
+		putchar_count('+', specs);
 	else if (specs->blank)
-		putchar_count(' ');
+		putchar_count(' ', specs);
 }

@@ -28,9 +28,9 @@ static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 		precision = specs->precision;
 	if (round_needed(f, precision, n, specs->precision))
 		n++;
-	putnbr_ull_count(n);
+	putnbr_ull_count(n, specs);
 	if (precision || specs->sharp)
-		putchar_count('.');
+		putchar_count('.', specs);
 	while (precision--)
 	{
 		f *= 10;
@@ -38,7 +38,7 @@ static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 		f -= n;
 		if (round_needed(f, precision, 0, -1))
 			n++;
-		putchar_count(n % 10 + '0');
+		putchar_count(n % 10 + '0', specs);
 	}
 }
 
@@ -54,9 +54,9 @@ void		putfloat_specs(long double f, int sign, t_conv_specs *specs)
 	while (specs->width > len)
 	{
 		if (specs->zero)
-			putchar_count('0');
+			putchar_count('0', specs);
 		else
-			putchar_count(' ');
+			putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)

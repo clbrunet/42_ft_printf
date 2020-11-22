@@ -20,7 +20,7 @@ static void	putstr_precision(char *s, t_conv_specs *specs)
 	precision = specs->precision;
 	while (*s && (specs->precision < 0 || precision > 0))
 	{
-		putchar_count(*s);
+		putchar_count(*s, specs);
 		s++;
 		precision--;
 	}
@@ -40,9 +40,9 @@ void		putstr_specs(char *s, t_conv_specs *specs)
 	while (specs->width > len)
 	{
 		if (specs->zero)
-			putchar_count('0');
+			putchar_count('0', specs);
 		else
-			putchar_count(' ');
+			putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)

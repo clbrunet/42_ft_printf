@@ -5,18 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/17 13:53:35 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/09/25 14:08:17 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/17 07:01:59 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/17 07:02:09 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "unistd.h"
+# include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include <stdio.h>
 
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
@@ -70,14 +69,5 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
-
-int				ft_isupper(int c);
-int				ft_islower(int c);
-int				ft_isblank(int c);
-int				ft_isspace(int c);
-void			ft_putchar(char c);
-void			ft_putstr(char *s);
-void			ft_putendl(char *s);
-void			ft_putnbr(int n);
 
 #endif

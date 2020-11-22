@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:49:05 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 13:49:05 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+static int	ft_isspace(int c)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	return (c == ' ' || c == '\f' || c == '\t'
+			|| c == '\n' || c == '\r' || c == '\v');
+}
+
+int			ft_atoi(const char *str)
+{
+	long	n;
+	int		sign;
+
+	while (ft_isspace(*str))
+		str++;
+	sign = 1;
+	if (*str == '-')
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		sign = -1;
+		str++;
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	else if (*str == '+')
+		str++;
+	n = 0;
+	while (ft_isdigit(*str))
+	{
+		n = n * 10 + *str - '0';
+		str++;
+	}
+	return (n * sign);
 }

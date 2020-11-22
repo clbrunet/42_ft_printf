@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:51:03 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 13:51:03 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	t_list	*last;
+
+	if (!alst || !new)
+		return ;
+	if (!*alst)
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		*alst = new;
+		return ;
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	last = *alst;
+	while (last->next)
+		last = last->next;
+	last->next = new;
 }

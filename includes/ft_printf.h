@@ -6,7 +6,7 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 13:13:45 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 10:34:03 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/22 07:06:42 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@ typedef struct	s_conv_specs
 	int		l;
 	int		h;
 	int		specifier;
+	int		chars;
 }				t_conv_specs;
 
-int				get_g_res(void);
-void			putchar_count(char c);
-void			putstr_count(char *s);
+void			putchar_count(char c, t_conv_specs *specs);
+void			putstr_count(char *s, t_conv_specs *specs);
 
 int				hexlen(unsigned long long n, int len);
 int				hexlen_specs(unsigned long long n, int n_len,
 		t_conv_specs *specs);
-int		ptrlen_specs(unsigned long long n, int n_len, t_conv_specs *specs);
-void			puthex_prefix(char specifier);
+int				ptrlen_specs(unsigned long long n, int n_len,
+		t_conv_specs *specs);
+void			puthex_prefix(char specifier, t_conv_specs *specs);
 
 int				nbrlen(unsigned long long n, int len);
-void			putnbr_ull_count(unsigned long long n);
+void			putnbr_ull_count(unsigned long long n, t_conv_specs *specs);
 int				nbradd_len(int sign, t_conv_specs *specs);
 void			putnbr_prefix(int sign, t_conv_specs *specs);
 

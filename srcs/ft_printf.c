@@ -14,23 +14,16 @@
 #include "debug.h"
 #include "libft.h"
 
-int		g_res = 0;
-
-int		get_g_res(void)
-{
-	return (g_res);
-}
-
-void	putchar_count(char c)
+void	putchar_count(char c, t_conv_specs *specs)
 {
 	write(1, &c, 1);
-	g_res++;
+	specs->chars++;
 }
 
-void	putstr_count(char *s)
+void	putstr_count(char *s, t_conv_specs *specs)
 {
 	write(1, s, ft_strlen(s));
-	g_res += ft_strlen(s);
+	specs->chars += ft_strlen(s);
 }
 
 int		ft_printf(const char *format, ...)
@@ -38,12 +31,12 @@ int		ft_printf(const char *format, ...)
 	va_list			ap;
 	t_conv_specs	specs;
 
-	g_res = 0;
+	specs.chars = 0;
 	va_start(ap, format);
 	while (*format)
 	{
 		while (*format && *format != '%')
-			putchar_count(*(format++));
+			putchar_count(*(format++), &specs);
 		if (*format && *(++format))
 		{
 			parse_conv_specs(&ap, &format, &specs);
@@ -53,5 +46,5 @@ int		ft_printf(const char *format, ...)
 		}
 	}
 	va_end(ap);
-	return (g_res);
+	return (specs.chars);
 }

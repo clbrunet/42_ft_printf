@@ -6,26 +6,26 @@
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:19:29 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 10:42:26 by clbrunet         ###   ########.fr       */
+/*   Updated: 2020/11/22 07:17:07 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "debug.h"
 
-static void	putexponent_suffix(int exponent)
+static void	putexponent_suffix(int exponent, t_conv_specs *specs)
 {
-	putchar_count('e');
+	putchar_count('e', specs);
 	if (exponent < 0)
 	{
 		exponent *= -1;
-		putchar_count('-');
+		putchar_count('-', specs);
 	}
 	else
-		putchar_count('+');
+		putchar_count('+', specs);
 	if (exponent < 10)
-		putchar_count('0');
-	putnbr_ull_count((unsigned long long)exponent);
+		putchar_count('0', specs);
+	putnbr_ull_count((unsigned long long)exponent, specs);
 }
 
 static void	putexponent_int(long double *f, int *exponent, int precision,
@@ -42,7 +42,7 @@ static void	putexponent_int(long double *f, int *exponent, int precision,
 		n = 1;
 		(*exponent)++;
 	}
-	putnbr_ull_count(n);
+	putnbr_ull_count(n, specs);
 }
 
 static void	putexponent_precision(long double f, int sign, int exponent,
@@ -56,7 +56,7 @@ static void	putexponent_precision(long double f, int sign, int exponent,
 	precision = get_exponent_precision(specs);
 	putexponent_int(&f, &exponent, precision, specs);
 	if (precision || specs->sharp)
-		putchar_count('.');
+		putchar_count('.', specs);
 	while (precision--)
 	{
 		f *= 10;
@@ -64,9 +64,9 @@ static void	putexponent_precision(long double f, int sign, int exponent,
 		f -= n;
 		if (round_needed(f, precision, -1, specs->precision))
 			n++;
-		putchar_count(n % 10 + '0');
+		putchar_count(n % 10 + '0', specs);
 	}
-	putexponent_suffix(exponent);
+	putexponent_suffix(exponent, specs);
 }
 
 void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
@@ -85,9 +85,9 @@ void		putexponent_specs(long double f, int sign, t_conv_specs *specs)
 	while (specs->width > len)
 	{
 		if (specs->zero)
-			putchar_count('0');
+			putchar_count('0', specs);
 		else
-			putchar_count(' ');
+			putchar_count(' ', specs);
 		specs->width--;
 	}
 	if (!specs->minus)

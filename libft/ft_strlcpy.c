@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:48:17 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 14:25:09 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	size_t	src_len;
+
+	if (!src)
+		return (0);
+	src_len = ft_strlen(src);
+	if (!dstsize || !dst)
+		return (src_len);
+	while (*src && --dstsize)
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		*dst = *src;
+		dst++;
+		src++;
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	*dst = 0;
+	return (src_len);
 }

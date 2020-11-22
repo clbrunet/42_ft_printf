@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putchar_specs.c                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 13:16:03 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 13:16:03 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/16 13:43:06 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/16 14:17:22 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "debug.h"
+#include "libft.h"
 
-void	putchar_specs(char c, t_conv_specs *specs)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (specs->minus)
-		putchar_count(c, specs);
-	while (specs->width > 1)
+	char		*s_dst;
+	const char	*s_src;
+
+	if (!dst && !src)
+		return (dst);
+	s_dst = (char *)dst;
+	s_src = (char *)src;
+	if (dst < src)
+		while (len--)
+			*(s_dst++) = *(s_src++);
+	else
 	{
-		if (specs->zero)
-			putchar_count('0', specs);
-		else
-			putchar_count(' ', specs);
-		specs->width--;
+		s_dst += len - 1;
+		s_src += len - 1;
+		while ((void *)s_dst >= dst)
+			*(s_dst--) = *(s_src--);
 	}
-	if (!specs->minus)
-		putchar_count(c, specs);
+	return (dst);
 }

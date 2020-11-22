@@ -45,10 +45,10 @@ int		ptrlen_specs(unsigned long long n, int n_len, t_conv_specs *specs)
 		return (n_len + 2);
 }
 
-void	puthex_prefix(char specifier)
+void	puthex_prefix(char specifier, t_conv_specs *specs)
 {
 	if (specifier == 'X')
-		putstr_count("0X");
+		putstr_count("0X", specs);
 	else
-		putstr_count("0x");
+		putstr_count("0x", specs);
 }
