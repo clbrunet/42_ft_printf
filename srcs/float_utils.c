@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 13:36:11 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 07:14:10 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:30 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:30 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 int		floatlen_specs(long double f, int sign, t_conv_specs *specs)
 {
@@ -33,6 +32,7 @@ int		round_needed(long double f, int left, unsigned long long nb,
 {
 	unsigned long long		n;
 
+	printf("\n//f %.10Lf\\\\\n", f);
 	f *= 10;
 	n = (unsigned long long)f;
 	if (precision == 0)

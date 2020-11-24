@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/20 21:42:00 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 10:22:52 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:39 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:39 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 int		hexlen(unsigned long long n, int len)
 {

@@ -5,14 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 13:12:34 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/07 10:45:36 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:35 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:35 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
-#include "libft.h"
 
 void	putchar_count(char c, t_conv_specs *specs)
 {
@@ -37,10 +35,14 @@ int		ft_printf(const char *format, ...)
 	{
 		while (*format && *format != '%')
 			putchar_count(*(format++), &specs);
-		if (*format && *(++format))
+		if (*format)
+			format++;
+		if (*format)
 		{
 			parse_conv_specs(&ap, &format, &specs);
 			specs.specifier = *format;
+			if (!*format)
+				break ;
 			convert(&ap, specs.specifier, &specs);
 			format++;
 		}

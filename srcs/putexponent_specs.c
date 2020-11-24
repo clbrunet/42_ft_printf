@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 17:19:29 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/22 07:17:07 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:53 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:53 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	putexponent_suffix(int exponent, t_conv_specs *specs)
 {

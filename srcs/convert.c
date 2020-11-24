@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/27 09:34:07 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 08:16:10 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:24 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:24 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 void	convert(va_list *ap, char specifier, t_conv_specs *specs)
 {
@@ -27,8 +26,6 @@ void	convert(va_list *ap, char specifier, t_conv_specs *specs)
 	{
 		if (specs->l == 0)
 			ll = (long long)va_arg(*ap, int);
-		/* else if (specs.l == 1) */
-		/* 	ll = (long long)va_arg(*ap, long); */
 		else
 			ll = va_arg(*ap, long long);
 		if (ll < 0)
@@ -43,15 +40,27 @@ void	convert(va_list *ap, char specifier, t_conv_specs *specs)
 void	convert2(va_list *ap, char specifier, t_conv_specs *specs)
 {
 	if (specifier == 'u')
-		putnbr_specs(va_arg(*ap, unsigned long long), 1, specs);
-	else if (specifier == 'x')
-		puthex_specs(va_arg(*ap, unsigned long long), specs);
-	else if (specifier == 'X')
-		puthex_specs(va_arg(*ap, unsigned long long), specs);
-	else if (specifier == '%')
-		putchar_specs('%', specs);
-	else if (specifier == 'n')
-		*(va_arg(*ap, int *)) = specs->chars;
+	{
+		if (specs->h == 1)
+			putnbr_specs((unsigned short)va_arg(*ap, unsigned), 1, specs);
+		else if (specs->h == 2)
+			putnbr_specs((unsigned char)va_arg(*ap, unsigned), 1, specs);
+		else if (specs->l == 0)
+			putnbr_specs((unsigned long long)va_arg(*ap, unsigned), 1, specs);
+		else
+			putnbr_specs(va_arg(*ap, unsigned long long), 1, specs);
+	}
+	else if (specifier == 'x' || specifier == 'X')
+	{
+		if (specs->h == 1)
+			puthex_specs((unsigned short)va_arg(*ap, unsigned), specs);
+		else if (specs->h == 2)
+			puthex_specs((unsigned char)va_arg(*ap, unsigned), specs);
+		else if (specs->l == 0)
+			puthex_specs((unsigned long long)va_arg(*ap, unsigned), specs);
+		else
+			puthex_specs(va_arg(*ap, unsigned long long), specs);
+	}
 	else
 		convert3(ap, specifier, specs);
 }
@@ -60,7 +69,11 @@ void	convert3(va_list *ap, char specifier, t_conv_specs *specs)
 {
 	long double		ld;
 
-	if (specifier == 'f')
+	if (specifier == '%')
+		putchar_specs('%', specs);
+	else if (specifier == 'n')
+		*(va_arg(*ap, int *)) = specs->chars;
+	else if (specifier == 'f')
 	{
 		ld = (long double)va_arg(*ap, double);
 		if (ld < 0 || (ld == -0.0 && 1 / ld == 1 / -0.0))

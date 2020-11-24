@@ -21,7 +21,7 @@ OBJS	=	$(SRCS:.c=.o)
 LIBFT	=	libft/libft.a
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -I includes -I libft
+CFLAGS	=	-Wall -Wextra -Werror -I./
 
 all		:	$(NAME)
 
@@ -32,13 +32,7 @@ $(NAME)	:	$(LIBFT) $(OBJS)
 			cp libft/libft.a $(NAME)
 			ar rcs $(NAME) $(OBJS)
 
-
-main	:	$(NAME)
-			$(CC) main.c debug.c -L. -lftprintf -Iincludes -Ilibft
-
-test	:	main
-			@echo "=================================================================================\n"
-			@./a.out
+bonus	:	$(NAME)
 
 clean	:
 			make -C libft/ clean
@@ -46,7 +40,7 @@ clean	:
 
 fclean	:	clean
 			make -C libft/ fclean 
-			rm -f $(NAME) libft.a
+			rm -f $(NAME)
 
 re		:	fclean all
 

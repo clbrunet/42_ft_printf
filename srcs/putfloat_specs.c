@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/09 12:00:24 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 09:09:39 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:32:01 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:32:01 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	putfloat_precision(long double f, int sign, t_conv_specs *specs)
 {

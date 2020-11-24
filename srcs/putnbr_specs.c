@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/04 11:33:27 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/07 10:55:07 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:32:06 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:32:06 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	put00case(t_conv_specs *specs)
 {

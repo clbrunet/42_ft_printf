@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/27 09:35:00 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/07 11:12:11 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:32:26 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:32:26 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static int	atoi_trim(const char **nptr)
 {

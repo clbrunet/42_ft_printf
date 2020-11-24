@@ -1,9 +1,0 @@
-a.out
-libft.a
-libftprintf.a
-compile_flags.txt
-**/*.o
-Moumounator_printf/
-printf-unit-test/
-pft/
-pft_2019/

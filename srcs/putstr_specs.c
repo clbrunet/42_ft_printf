@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 14:34:45 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/07 14:34:45 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:09 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:09 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	putstr_precision(char *s, t_conv_specs *specs)
 {

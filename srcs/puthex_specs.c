@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 20:35:57 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/20 10:11:20 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:58 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:58 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	puthex_null(t_conv_specs *specs)
 {

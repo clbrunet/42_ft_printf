@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/20 21:29:55 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/11/07 11:52:39 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:32:12 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:32:12 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 static void	putptr_ull(unsigned long long n, t_conv_specs *specs)
 {

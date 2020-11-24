@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbrunet <clbrunet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/09 19:27:52 by clbrunet          #+#    #+#             */
-/*   Updated: 2020/10/09 19:27:52 by clbrunet         ###   ########.fr       */
+/*   Created: 2020/11/24 06:31:43 by clbrunet          #+#    #+#             */
+/*   Updated: 2020/11/24 06:31:43 by clbrunet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "debug.h"
 
 int		nbrlen(unsigned long long n, int len)
 {
