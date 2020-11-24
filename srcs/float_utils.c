@@ -32,7 +32,6 @@ int		round_needed(long double f, int left, unsigned long long nb,
 {
 	unsigned long long		n;
 
-	printf("\n//f %.10Lf\\\\\n", f);
 	f *= 10;
 	n = (unsigned long long)f;
 	if (precision == 0)
